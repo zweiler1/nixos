@@ -195,6 +195,9 @@
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = [ ];
 
+  # Enable experimental features
+  nix.extraOptions = ''experimental-features = nix-command flakes'';
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -225,6 +228,7 @@
     #cnijfilter_4_00 # Driver for the specific printer that we have
     vsftpd # very secure ftp daemon
     cached-nix-shell # instant nix-shell startup times
+    home-manager
 
     # NVIM Dependencies
     gcc # c/cpp compiler
