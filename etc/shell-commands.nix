@@ -97,6 +97,16 @@
               fi
               find "$dir" -type f -exec wc -l {} \; | cut -d ' ' -f1 | sed 's/$/+/g' | tr -d '\n' | sed 's/+$/\n/' | bc
       }
+
+
+      # Turn on / off the screen
+      toggle_screen() {
+        if [ $(hyprctl monitors ... | grep -q "dpmsStatus: ." | sed -e "s/dpmsStatus: \(.\)/\1/") ]; then
+                hyprctl dispatch dpms on
+        else
+                hyprctl dispatch dpms off
+        fi
+      }
     '';
   };
 }
