@@ -1,4 +1,6 @@
 { pkgs }:
 {
-  packages = with pkgs; [ ];
+  packages = with pkgs; [
+    noctalia
+  ];
 }

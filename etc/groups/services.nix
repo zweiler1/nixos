@@ -27,5 +27,9 @@
       # If you want to use JACK applications, uncomment this
       # jack.enable = true;
     };
+
+    # Needed by noctalia
+    power-profiles-daemon.enable = true;
+    upower.enable = true;
   };
 }
