@@ -15,6 +15,7 @@ let
   systemPackages = (import ./packages/pkgs.nix { pkgs = pkgs; }).packages;
   hyprlandPackages = (import ./packages/hyprland.nix { pkgs = pkgs; }).packages;
   kdePackages = (import ./packages/kdePackages.nix { pkgs = pkgs.kdePackages; }).packages;
+  qt6ctPackage = (import ./packages/qt6ct-kde.nix { inherit pkgs; });
 in
 {
   imports = [
@@ -76,7 +77,9 @@ in
     systemPackages ++
     hyprlandPackages ++
     kdePackages ++
-    unstablePackages;
+    unstablePackages ++ [
+      qt6ctPackage
+    ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
