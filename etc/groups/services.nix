@@ -28,8 +28,14 @@
       # jack.enable = true;
     };
 
+    # Enable pinentry for gnupg
+    pcscd.enable = true;
+
     # Needed by noctalia
     power-profiles-daemon.enable = true;
     upower.enable = true;
+
+    # Udisks2 is a linux utility for disk operations (needed by dolphin)
+    udisks2.enable = true;
   };
 }

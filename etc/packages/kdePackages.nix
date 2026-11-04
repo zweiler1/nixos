@@ -3,6 +3,7 @@
   packages = with pkgs; [
     kate
     polkit-kde-agent-1
+    kgpg # GPG Key manager for hyprland
 
     # Dolphin
     dolphin

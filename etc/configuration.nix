@@ -13,6 +13,7 @@ let
 
   # Packages on stable base
   systemPackages = (import ./packages/pkgs.nix { pkgs = pkgs; }).packages;
+  devtoolsPackages = (import ./packages/devtools.nix { pkgs = pkgs; }).packages;
   hyprlandPackages = (import ./packages/hyprland.nix { pkgs = pkgs; }).packages;
   kdePackages = (import ./packages/kdePackages.nix { pkgs = pkgs.kdePackages; }).packages;
   qt6ctPackage = (import ./packages/qt6ct-kde.nix { inherit pkgs; });
@@ -75,6 +76,7 @@ in
   environment = {
     systemPackages =
       systemPackages ++
+      devtoolsPackages ++
       hyprlandPackages ++
       kdePackages ++
       unstablePackages ++ [
