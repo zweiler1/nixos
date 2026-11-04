@@ -26,6 +26,7 @@ in
     ./groups/networking.nix
     ./groups/services.nix
     ./groups/programs.nix
+    ./groups/systemd.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -71,15 +72,25 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-  environment.systemPackages =
-    systemPackages ++
-    hyprlandPackages ++
-    kdePackages ++
-    unstablePackages ++ [
-      qt6ctPackage
-    ];
+  environment = {
+    systemPackages =
+      systemPackages ++
+      hyprlandPackages ++
+      kdePackages ++
+      unstablePackages ++ [
+        qt6ctPackage
+      ];
+
+    etc = {
+      # Store the system config files as part of the system iteration itself so that we can always tell what the
+      # input of a given built system was.
+      "nixos-config-snapshot".source = ./.;
+
+      # Needed for proper mime types
+      "xdg/menus/applications.menu".source = "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+    };
+    sessionVariables.XDG_MENU_PREFIX = "plasma-";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -93,12 +104,6 @@ in
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
-  environment.etc."nixos-config-snapshot".source = ./.;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
@@ -118,5 +123,4 @@ in
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "26.05"; # Did you read the comment?
-
 }

@@ -16,7 +16,8 @@
     kitemmodels
     kdeclarative
     kio
-    kservice
+    kservice # Provides kbuildsycoca6
+    plasma-workspace # For the XDG menu fix (mime types)
     kirigami
     frameworkintegration
   ];
