@@ -1,0 +1,5 @@
+{
+  hardware = {
+    # Fill up
+  };
+}
