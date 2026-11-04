@@ -4,6 +4,18 @@
 
 { config, pkgs, ... }:
 
+let
+  # Import the unstable channel
+  unstable = import <nixos-unstable> { };
+
+  # Packages on unstable base
+  unstablePackages = (import ./packages/unstable.nix { pkgs = unstable; }).packages;
+
+  # Packages on stable base
+  systemPackages = (import ./packages/pkgs.nix { pkgs = pkgs; }).packages;
+  hyprlandPackages = (import ./packages/hyprland.nix { pkgs = pkgs; }).packages;
+  kdePackages = (import ./packages/kdePackages.nix { pkgs = pkgs.kdePackages; }).packages;
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -59,10 +71,7 @@
     isNormalUser = true;
     description = "Marc Zweiler";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      kdePackages.kate
-    #  thunderbird
-    ];
+    packages = with pkgs; [ ];
   };
 
   # Allow unfree packages
@@ -70,10 +79,11 @@
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
-  # environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
-  # ];
+  environment.systemPackages =
+    systemPackages ++
+    hyprlandPackages ++
+    kdePackages ++
+    unstablePackages;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
