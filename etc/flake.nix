@@ -19,7 +19,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    noctalia.url = "github:noctalia-dev/noctalia/cachix";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia/v5.0.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
