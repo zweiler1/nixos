@@ -22,7 +22,12 @@
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, ... }@inputs:
+  let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in
+  {
     # use "nixos", or your hostname as the name of the configuration
     # it's a better practice than "default" shown in the video
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -32,6 +37,16 @@
         ./configuration.nix
         inputs.home-manager.nixosModules.default
       ];
+    };
+
+    # Manpages
+    packages.${system}.noctalia-manpage = import ./docs/module-manpage.nix {
+      inherit pkgs;
+      homeManagerSrc = inputs.home-manager.outPath;
+      module = inputs.noctalia.homeModules.default;
+      optionsPath = [ "programs" "noctalia" ];
+      pageName = "home-noctalia.nix";
+      revision = "Noctalia";
     };
   };
 }
