@@ -1,6 +1,11 @@
 { pkgs, ... }:
 {
   systemd = {
+    tmpfiles.rules = [
+      # Fix asusd as it requires the /etc/asusd dir to be present
+      "d /etc/asusd 0755 root root -"
+    ];
+
     user.services.rebuild-ksycoca = {
       description = "Rebuild KDE ksycoca cache (MIME / service types)";
       wantedBy = [ "graphical-session.target" ];

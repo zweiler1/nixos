@@ -37,5 +37,7 @@
 
     # Udisks2 is a linux utility for disk operations (needed by dolphin)
     udisks2.enable = true;
+
+    asusd.enable = true;
   };
 }
