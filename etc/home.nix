@@ -7,6 +7,7 @@
   home.homeDirectory = "/home/zweiler1";
 
   imports = [
+    ./home/git.nix
     ./home/noctalia.nix
   ];
 
