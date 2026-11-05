@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
   # Import the unstable channel
@@ -37,6 +37,7 @@ in
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
@@ -68,6 +69,13 @@ in
     description = "Marc Zweiler";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ ];
+  };
+
+  home-manager = {
+    extraSpecialArgs = { inherit inputs; };
+    users = {
+      "zweiler1" = import ./home.nix;
+    };
   };
 
   # Allow unfree packages
