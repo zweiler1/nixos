@@ -8,6 +8,7 @@
 
   imports = [
     ./home/git.nix
+    ./home/lutris.nix
     ./home/noctalia.nix
   ];
 

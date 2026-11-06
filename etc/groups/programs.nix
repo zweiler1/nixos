@@ -1,5 +1,8 @@
 {
   programs = {
+    # Enable binaries to be executable
+    nix-ld.enable = true;
+
     firefox.enable = true;
 
     hyprland = {

@@ -13,5 +13,8 @@
     stylua
     tree-sitter
     luaPackages.tree-sitter-cli
+
+    vulkan-tools
+    mesa-demos
   ];
 }

@@ -23,7 +23,7 @@ in
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     # Groupings to make the configuration.nix file smaller
-    ./groups/hardware.nix
+    (import ./groups/hardware.nix { inherit pkgs; })
     ./groups/networking.nix
     ./groups/services.nix
     ./groups/programs.nix
